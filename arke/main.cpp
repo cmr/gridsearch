@@ -13,7 +13,7 @@ class grid {
 		cell* neighbors[4];
 	};
 
-	std::unique_ptr<cell[]> cells;
+	cell* cells;
 	int length;
 
 	cell* find_start();
@@ -44,7 +44,7 @@ bool grid::fill(istream& source) {
 	if (this->length < 1)
 		return false;
 
-	this->cells = make_unique<cell[]>(length * length);
+	this->cells = new cell[length * length];
 
 	for (int i = 0; i < length; i++) {
 		for (int j = 0; j < length; j++) {
@@ -127,7 +127,7 @@ grid::cell* grid::get_cell(int x, int y) {
 	if (y < 0 || x < 0 || y >= this->length || x >= this->length)
 		return nullptr;
 
-	return this->cells.get() + (y * this->length + x);
+	return this->cells + (y * this->length + x);
 }
 
 int main(int argc, char** argv) {
